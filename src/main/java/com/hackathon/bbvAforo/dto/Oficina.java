@@ -1,5 +1,7 @@
 package com.hackathon.bbvAforo.dto;
 
+import java.math.BigDecimal;
+
 public class Oficina {
     private int id;
     private String nombre;
@@ -9,11 +11,13 @@ public class Oficina {
     private int idPais;
     private int aforoTotal;
     private int aforoActual;
+    private BigDecimal latOficina;
+    private BigDecimal longOficina;
 
     public Oficina() {
     }
 
-    public Oficina(int id, String nombre, String direccion, int idEstado, int idProvincia, int idPais, int aforoTotal, int aforoActual) {
+    public Oficina(int id, String nombre, String direccion, int idEstado, int idProvincia, int idPais, int aforoTotal, int aforoActual, BigDecimal latOficina, BigDecimal longOficina) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -22,6 +26,8 @@ public class Oficina {
         this.idPais = idPais;
         this.aforoTotal = aforoTotal;
         this.aforoActual = aforoActual;
+        this.latOficina = latOficina;
+        this.longOficina = longOficina;
     }
 
     public int getId() {
@@ -86,5 +92,21 @@ public class Oficina {
 
     public void setAforoActual(int aforoActual) {
         this.aforoActual = aforoActual;
+    }
+
+    public BigDecimal getLatOficina() {
+        return latOficina;
+    }
+
+    public void setLatOficina(BigDecimal latOficina) {
+        this.latOficina = latOficina;
+    }
+
+    public BigDecimal getLongOficina() {
+        return longOficina;
+    }
+
+    public void setLongOficina(BigDecimal longOficina) {
+        this.longOficina = longOficina;
     }
 }
