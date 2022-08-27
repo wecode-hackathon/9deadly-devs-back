@@ -1,5 +1,7 @@
 package com.hackathon.bbvAforo.controller;
 
+import com.hackathon.bbvAforo.repository.CapacidadActualRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,13 +17,16 @@ import javax.websocket.server.PathParam;
 @RestController
 public class CapacidadActualController {
 
+    @Autowired
+    private CapacidadActualRepository capacidadActualRepository;
+
     @GetMapping("/obtenerCapacidadActual")
-    public int obtenerCapacidadActual(
+    public List<Oficina> obtenerCapacidadActual(
             @PathParam(value = "latitud") BigDecimal latitud,
             @PathParam(value = "longitud") BigDecimal longitud
     ) {
 
-        return 1;
+        return capacidadActualRepository.getNumber();
     }
 
     @GetMapping("/obtenerOficinas")
