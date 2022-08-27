@@ -4,13 +4,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hackathon.bbvAforo.dto.Oficina;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.websocket.server.PathParam;
 
 @RestController
 public class CapacidadActualController {
-    
+
     @GetMapping("/obtenerCapacidadActual")
     public int obtenerCapacidadActual(
             @PathParam(value = "latitud") BigDecimal latitud,
@@ -21,7 +25,8 @@ public class CapacidadActualController {
     }
 
     @GetMapping("/obtenerOficinas")
-    public int getOficinas(@PathParam(value = "latUsuario") BigDecimal latUsuario, @PathParam(value = "longUsuario") BigDecimal longUsuario) {
-        return 1;
+    public List<Oficina> getOficinas(@PathParam(value = "latUsuario") BigDecimal latUsuario, @PathParam(value = "longUsuario") BigDecimal longUsuario) {
+        ArrayList<Oficina> oficinas = new ArrayList<Oficina>();
+        return oficinas;
     }
 }
