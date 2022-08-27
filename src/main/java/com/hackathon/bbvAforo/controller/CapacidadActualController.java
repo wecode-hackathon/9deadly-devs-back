@@ -46,7 +46,9 @@ public class CapacidadActualController {
         
 
         ResultSet rs = stmt.executeQuery(query);
-
+        while(rs.next()){
+            System.out.println(rs.getString("nombre"));
+        }
         
 
 
