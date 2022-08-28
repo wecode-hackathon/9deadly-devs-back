@@ -28,13 +28,8 @@ public class CapacidadActualRepository {
         
 
         return this.jdbcTemplate.queryForObject(
-<<<<<<< HEAD
                 "select o.id, o.nombre, o.direccion, o.numventanillas, o.numplataformas, o.aforototal, o.aforoactual, o.colaexterna, aforo.clientes, aforo.noclientes, aforo.ventanilla, aforo.plataforma from oficinas as o left join aforooficina as aforo on o.id = aforo.idoficina where id = ?",
                 new Object[] { id },
-=======
-                "SELECT * FROM oficinas WHERE id = ?",
-                new Object[]{id},
->>>>>>> 2215645bb79290631f9c470aa6e9a889f6d56765
                 (rs, rowNum) -> {
                     Oficina oficina = new Oficina();
                     oficina.setId(rs.getInt("id"));
@@ -67,11 +62,7 @@ public class CapacidadActualRepository {
 
         latProcesada1 = latProcesada1.subtract(diff);
         latProcesada2 = latProcesada2.add(diff);
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 2215645bb79290631f9c470aa6e9a889f6d56765
         longProcesada1 = longProcesada1.subtract(diff);
         longProcesada2 = longProcesada2.add(diff);
 
@@ -92,7 +83,6 @@ public class CapacidadActualRepository {
         );
     }
 
-<<<<<<< HEAD
     public int setAforoOficina(OficinaAforo oficinaAforo){
         this.jdbcTemplate.update(
             "UPDATE aforooficina SET clientes = ?, noclientes = ?, ventanilla = ?, plataforma = ? WHERE id = ?",
@@ -105,13 +95,5 @@ public class CapacidadActualRepository {
         return this.jdbcTemplate.update("UPDATE oficinas SET aforoactual = ?, colaexterna = ?", new Object[] {
             (oficinaAforo.getcantPersonal() + oficinaAforo.getcantNoPersonal()), oficinaAforo.getcantExternos()
         });
-=======
-    public int setAforoOficina(OficinaAforo oficinaAforo) {
-
-        return this.jdbcTemplate.update(
-                "UPDATE * FROM oficinas SET aforoactual = ?, numclientes = ?, numnoclientes = ?, numexterno WHERE id = ?",
-                new Object[]{oficinaAforo.getCantClientes(), oficinaAforo.getId()}
-        );
->>>>>>> 2215645bb79290631f9c470aa6e9a889f6d56765
     }
 }
