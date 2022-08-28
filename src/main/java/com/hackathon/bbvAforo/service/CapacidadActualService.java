@@ -19,7 +19,10 @@ public class CapacidadActualService {
 
     public List<Oficina> getOficinas(BigDecimal latitud, BigDecimal longitud) {
         return capacidadActualRepository.getOficinas(latitud, longitud);
-        
+    }
+
+    public Oficina getAforoServer(int idOficina){
+        return capacidadActualRepository.getAforoServer(idOficina);
     }
 
     

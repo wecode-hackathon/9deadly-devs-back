@@ -39,4 +39,12 @@ public class CapacidadActualController {
     public List<Oficina> getOficinas(@PathParam(value = "latUsuario") BigDecimal latUsuario, @PathParam(value = "longUsuario") BigDecimal longUsuario) {
         return capacidadActualService.getOficinas(latUsuario, longUsuario);
     }
+
+    @GetMapping("/actualizarAforo")
+    public Oficina getAforoServer(@PathParam(value = "idOficina") int idOficina){
+         
+        return capacidadActualService.getAforoServer(idOficina);
+    }
+
+
 }

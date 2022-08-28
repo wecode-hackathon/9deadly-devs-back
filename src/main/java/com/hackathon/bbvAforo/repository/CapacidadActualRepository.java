@@ -1,10 +1,13 @@
 package com.hackathon.bbvAforo.repository;
 
 import com.hackathon.bbvAforo.dto.Oficina;
+import com.hackathon.bbvAforo.repository.RowMapper.OficinaRowMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.RowMapper;  
 
 
 import java.math.BigDecimal;
@@ -37,6 +40,14 @@ public class CapacidadActualRepository {
 
                     return oficina;
                 });
+    }
+
+    public Oficina getAforoServer(int idOficina){
+        return this.jdbcTemplate.queryForObject(
+                "SELECT * FROM oficinas where idOficina = ?",
+                new Object[] { idOficina },
+                new OficinaRowMapper());
+
     }
 
     public List<Oficina> getOficinas(BigDecimal latitud, BigDecimal longitud) {
