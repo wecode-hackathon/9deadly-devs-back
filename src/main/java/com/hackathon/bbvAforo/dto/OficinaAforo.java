@@ -17,9 +17,10 @@ public class OficinaAforo {
 
     }
 
-    public OficinaAforo(int id, int cantPersonal, int cantClientes, int cantNoClientes, int cantPlataforma, int cantVentanilla, int cantExternos){
+    public OficinaAforo(int id, int cantPersonal, int cantNoPersonal, int cantClientes, int cantNoClientes, int cantPlataforma, int cantVentanilla, int cantExternos){
         this.id = id;
         this.cantPersonal = cantPersonal;
+        this.cantNoPersonal = cantNoPersonal;
         this.cantClientes = cantClientes;
         this.cantNoClientes = cantNoClientes;
         this.cantPlataforma = cantPlataforma;
@@ -45,7 +46,7 @@ public class OficinaAforo {
     }
 
     public int getcantNoPersonal() {
-        return cantPersonal;
+        return cantNoPersonal;
     }
 
     public void setcantNoPersonal(int cantNoPersonal) {
