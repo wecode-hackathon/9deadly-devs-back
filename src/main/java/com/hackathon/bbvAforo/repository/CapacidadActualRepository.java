@@ -3,13 +3,10 @@ package com.hackathon.bbvAforo.repository;
 import com.hackathon.bbvAforo.dto.Oficina;
 import com.hackathon.bbvAforo.dto.OficinaAforo;
 import com.hackathon.bbvAforo.repository.RowMapper.OficinaRowMapper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.jdbc.core.RowMapper;  
-
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,8 +28,13 @@ public class CapacidadActualRepository {
         
 
         return this.jdbcTemplate.queryForObject(
+<<<<<<< HEAD
                 "select o.id, o.nombre, o.direccion, o.numventanillas, o.numplataformas, o.aforototal, o.aforoactual, o.colaexterna, aforo.clientes, aforo.noclientes, aforo.ventanilla, aforo.plataforma from oficinas as o left join aforooficina as aforo on o.id = aforo.idoficina where id = ?",
                 new Object[] { id },
+=======
+                "SELECT * FROM oficinas WHERE id = ?",
+                new Object[]{id},
+>>>>>>> 2215645bb79290631f9c470aa6e9a889f6d56765
                 (rs, rowNum) -> {
                     Oficina oficina = new Oficina();
                     oficina.setId(rs.getInt("id"));
@@ -45,27 +47,31 @@ public class CapacidadActualRepository {
                 });
     }
 
-    public Oficina getAforoServer(int idOficina){
+    public Oficina getAforoServer(int idOficina) {
         return this.jdbcTemplate.queryForObject(
                 "SELECT * FROM oficinas where idOficina = ?",
-                new Object[] { idOficina },
+                new Object[]{idOficina},
                 new OficinaRowMapper());
 
     }
 
     public List<Oficina> getOficinas(BigDecimal latitud, BigDecimal longitud) {
-        
+
         BigDecimal latProcesada1 = latitud;
         BigDecimal latProcesada2 = latitud;
-    
+
         BigDecimal longProcesada1 = longitud;
         BigDecimal longProcesada2 = longitud;
-    
+
         BigDecimal diff = new BigDecimal(0.01);
-    
+
         latProcesada1 = latProcesada1.subtract(diff);
         latProcesada2 = latProcesada2.add(diff);
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 2215645bb79290631f9c470aa6e9a889f6d56765
         longProcesada1 = longProcesada1.subtract(diff);
         longProcesada2 = longProcesada2.add(diff);
 
@@ -74,6 +80,7 @@ public class CapacidadActualRepository {
                 new Object[] { latProcesada1, latProcesada2, longProcesada1, longProcesada2 },
                 (rs, rowNum) -> {
                     Oficina oficina = new Oficina();
+                    oficina.setId(rs.getInt("id"));
                     oficina.setAforoActual(rs.getInt("aforoactual"));
                     oficina.setNombre(rs.getString("nombre"));
                     oficina.setDireccion(rs.getString("direccion"));
@@ -81,9 +88,11 @@ public class CapacidadActualRepository {
                     oficina.setLongOficina(rs.getBigDecimal("longitud"));
 
                     return oficina;
-                });
+                }
+        );
     }
 
+<<<<<<< HEAD
     public int setAforoOficina(OficinaAforo oficinaAforo){
         this.jdbcTemplate.update(
             "UPDATE aforooficina SET clientes = ?, noclientes = ?, ventanilla = ?, plataforma = ? WHERE id = ?",
@@ -96,5 +105,13 @@ public class CapacidadActualRepository {
         return this.jdbcTemplate.update("UPDATE oficinas SET aforoactual = ?, colaexterna = ?", new Object[] {
             (oficinaAforo.getcantPersonal() + oficinaAforo.getcantNoPersonal()), oficinaAforo.getcantExternos()
         });
+=======
+    public int setAforoOficina(OficinaAforo oficinaAforo) {
+
+        return this.jdbcTemplate.update(
+                "UPDATE * FROM oficinas SET aforoactual = ?, numclientes = ?, numnoclientes = ?, numexterno WHERE id = ?",
+                new Object[]{oficinaAforo.getCantClientes(), oficinaAforo.getId()}
+        );
+>>>>>>> 2215645bb79290631f9c470aa6e9a889f6d56765
     }
 }
