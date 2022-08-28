@@ -85,15 +85,15 @@ public class CapacidadActualRepository {
 
     public int setAforoOficina(OficinaAforo oficinaAforo){
         this.jdbcTemplate.update(
-            "UPDATE aforooficina SET clientes = ?, noclientes = ?, ventanilla = ?, plataforma = ? WHERE idOficina = ?",
+            "UPDATE aforooficina SET clientes = ?, noclientes = ?, ventanilla = ?, plataforma = ? WHERE idoficina = ?",
             new Object[] { oficinaAforo.getCantClientes(),
                  oficinaAforo.getcantNoClientes(), 
                  oficinaAforo.getcantVentanilla(), 
                  oficinaAforo.getcantPlataforma(), oficinaAforo.getId() }
             );
 
-        return this.jdbcTemplate.update("UPDATE oficinas SET aforoactual = ?, colaexterna = ?", new Object[] {
-            (oficinaAforo.getcantPersonal() + oficinaAforo.getcantNoPersonal()), oficinaAforo.getcantExternos()
+        return this.jdbcTemplate.update("UPDATE oficinas SET aforoactual = ?, colaexterna = ? WHERE id = ?", new Object[] {
+            (oficinaAforo.getcantPersonal() + oficinaAforo.getcantNoPersonal()), oficinaAforo.getcantExternos(), oficinaAforo.getId()
         });
     }
 }

@@ -51,8 +51,9 @@ public class CapacidadActualController {
 
     @PostMapping("/updateAforo")
     public ResponseEntity setAforoActual(@RequestBody OficinaAforo oficinaAforo){
+        int actualizaciones = capacidadActualService.setAforoOficina(oficinaAforo);
         
-        if(capacidadActualService.setAforoOficina(oficinaAforo) == 1)
+        if(actualizaciones == 1)
         {
             return ResponseEntity.ok(HttpStatus.OK);
         }
