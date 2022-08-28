@@ -85,7 +85,7 @@ public class CapacidadActualRepository {
 
     public int setAforoOficina(OficinaAforo oficinaAforo){
         this.jdbcTemplate.update(
-            "UPDATE aforooficina SET clientes = ?, noclientes = ?, ventanilla = ?, plataforma = ? WHERE id = ?",
+            "UPDATE aforooficina SET clientes = ?, noclientes = ?, ventanilla = ?, plataforma = ? WHERE idOficina = ?",
             new Object[] { oficinaAforo.getCantClientes(),
                  oficinaAforo.getcantNoClientes(), 
                  oficinaAforo.getcantVentanilla(), 
