@@ -1,9 +1,10 @@
 package com.hackathon.bbvAforo.controller;
 
 import com.hackathon.bbvAforo.repository.CapacidadActualRepository;
+import com.hackathon.bbvAforo.service.CapacidadActualService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hackathon.bbvAforo.dto.Oficina;
@@ -20,6 +21,12 @@ public class CapacidadActualController {
     @Autowired
     private CapacidadActualRepository capacidadActualRepository;
 
+    private CapacidadActualService capacidadActualService;
+
+    public CapacidadActualController (CapacidadActualService capacidadActualService){
+        this.capacidadActualService = capacidadActualService;
+    }
+
     @GetMapping("/obtenerCapacidadActual")
     public List<Oficina> obtenerCapacidadActual(
             @PathParam(value = "latitud") BigDecimal latitud,
@@ -30,7 +37,6 @@ public class CapacidadActualController {
 
     @GetMapping("/obtenerOficinas")
     public List<Oficina> getOficinas(@PathParam(value = "latUsuario") BigDecimal latUsuario, @PathParam(value = "longUsuario") BigDecimal longUsuario) {
-        ArrayList<Oficina> oficinas = new ArrayList<Oficina>();
-        return oficinas;
+        return capacidadActualService.getOficinas(latUsuario, longUsuario);
     }
 }
