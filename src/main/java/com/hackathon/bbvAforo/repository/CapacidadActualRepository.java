@@ -1,6 +1,7 @@
 package com.hackathon.bbvAforo.repository;
 
 import com.hackathon.bbvAforo.dto.Oficina;
+import com.hackathon.bbvAforo.dto.OficinaAforo;
 import com.hackathon.bbvAforo.repository.RowMapper.OficinaRowMapper;
 
 import org.slf4j.Logger;
@@ -32,13 +33,11 @@ public class CapacidadActualRepository {
                 (rs, rowNum) -> {
                     Oficina oficina = new Oficina();
                     oficina.setId(rs.getInt("id"));
-                    oficina.setAforoActual(rs.getInt("aforoactual"));
-                    oficina.setAforoTotal(rs.getInt("aforototal"));
                     oficina.setNombre(rs.getString("nombre"));
-                    oficina.setDireccion(rs.getString("direccion"));
-                    oficina.setLatOficina(rs.getBigDecimal("latitud"));
-                    oficina.setLongOficina(rs.getBigDecimal("longitud"));
-
+                    oficina.setestado(1);
+                    oficina.setAforoActual(rs.getInt("aforoactual"));
+                    oficina.setEsperaPlataforma(15);
+                    oficina.setEsperaVentanilla(5);
                     return oficina;
                 });
     }
@@ -52,6 +51,7 @@ public class CapacidadActualRepository {
     }
 
     public List<Oficina> getOficinas(BigDecimal latitud, BigDecimal longitud) {
+        
         BigDecimal latProcesada1 = latitud;
         BigDecimal latProcesada2 = latitud;
     
@@ -79,5 +79,13 @@ public class CapacidadActualRepository {
 
                     return oficina;
                 });
+    }
+
+    public int setAforoOficina(OficinaAforo oficinaAforo){
+
+        return this.jdbcTemplate.update(
+            "UPDATE * FROM oficinas SET aforoactual = ?, numclientes = ?, numnoclientes = ?, numexterno WHERE id = ?",
+            new Object[] { oficinaAforo.getCantClientes(), oficinaAforo.getId() }
+            );
     }
 }

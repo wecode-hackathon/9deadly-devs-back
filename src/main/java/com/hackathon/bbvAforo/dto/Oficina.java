@@ -11,6 +11,9 @@ public class Oficina {
     private int idPais;
     private int aforoTotal;
     private int aforoActual;
+    private int estado;
+    private int esperaPlataforma;
+    private int esperaVentanilla;
     private BigDecimal latOficina;
     private BigDecimal longOficina;
 
@@ -108,5 +111,29 @@ public class Oficina {
 
     public void setLongOficina(BigDecimal longOficina) {
         this.longOficina = longOficina;
+    }
+
+    public int getestado() {
+        return estado;
+    }
+
+    public void setestado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getEsperaVentanilla() {
+        return esperaVentanilla;
+    }
+
+    public void setEsperaVentanilla(int esperaVentanilla) {
+        this.esperaVentanilla = esperaVentanilla;
+    }
+
+    public int getEsperaPlataforma() {
+        return esperaPlataforma;
+    }
+
+    public void setEsperaPlataforma(int esperaPlataforma) {
+        this.esperaPlataforma = esperaPlataforma;
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.hackathon.bbvAforo.dto.Oficina;
+import com.hackathon.bbvAforo.dto.OficinaAforo;
 import com.hackathon.bbvAforo.repository.CapacidadActualRepository;
 
 @Service
@@ -23,6 +24,10 @@ public class CapacidadActualService {
 
     public Oficina getAforoServer(int idOficina){
         return capacidadActualRepository.getAforoServer(idOficina);
+    }
+
+    public int setAforoOficina(OficinaAforo oficinaAforo){
+        return capacidadActualRepository.setAforoOficina(oficinaAforo);
     }
 
     
