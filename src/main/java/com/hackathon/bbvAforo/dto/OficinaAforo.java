@@ -4,7 +4,8 @@ package com.hackathon.bbvAforo.dto;
 public class OficinaAforo {
 
     private int id;
-    private int cantPersonas;
+    private int cantPersonal;
+    private int cantNoPersonal;
     private int cantClientes;
     private int cantNoClientes;
     private int cantPlataforma;
@@ -16,9 +17,9 @@ public class OficinaAforo {
 
     }
 
-    public OficinaAforo(int id, int cantPersonas, int cantClientes, int cantNoClientes, int cantPlataforma, int cantVentanilla, int cantExternos){
+    public OficinaAforo(int id, int cantPersonal, int cantClientes, int cantNoClientes, int cantPlataforma, int cantVentanilla, int cantExternos){
         this.id = id;
-        this.cantPersonas = cantPersonas;
+        this.cantPersonal = cantPersonal;
         this.cantClientes = cantClientes;
         this.cantNoClientes = cantNoClientes;
         this.cantPlataforma = cantPlataforma;
@@ -35,12 +36,20 @@ public class OficinaAforo {
     }
 
         
-    public int getCantPersonas() {
-        return cantPersonas;
+    public int getcantPersonal() {
+        return cantPersonal;
     }
 
-    public void setCantPersonas(int cantPersonas) {
-        this.cantPersonas = cantPersonas;
+    public void setcantPersonal(int cantPersonal) {
+        this.cantPersonal = cantPersonal;
+    }
+
+    public int getcantNoPersonal() {
+        return cantPersonal;
+    }
+
+    public void setcantNoPersonal(int cantNoPersonal) {
+        this.cantNoPersonal = cantNoPersonal;
     }
 
         

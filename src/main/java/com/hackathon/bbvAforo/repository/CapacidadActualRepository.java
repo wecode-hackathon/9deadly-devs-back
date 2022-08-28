@@ -27,8 +27,11 @@ public class CapacidadActualRepository {
     public Oficina getCapacidadActual(
             final int id
     ) {
+
+        
+
         return this.jdbcTemplate.queryForObject(
-                "SELECT * FROM oficinas WHERE id = ?",
+                "select o.id, o.nombre, o.direccion, o.numventanillas, o.numplataformas, o.aforototal, o.aforoactual, o.colaexterna, aforo.clientes, aforo.noclientes, aforo.ventanilla, aforo.plataforma from oficinas as o left join aforooficina as aforo on o.id = aforo.idoficina where id = ?",
                 new Object[] { id },
                 (rs, rowNum) -> {
                     Oficina oficina = new Oficina();
@@ -36,7 +39,7 @@ public class CapacidadActualRepository {
                     oficina.setNombre(rs.getString("nombre"));
                     oficina.setestado(1);
                     oficina.setAforoActual(rs.getInt("aforoactual"));
-                    oficina.setEsperaPlataforma(15);
+                    oficina.setEsperaPlataforma(25);
                     oficina.setEsperaVentanilla(5);
                     return oficina;
                 });
@@ -61,10 +64,10 @@ public class CapacidadActualRepository {
         BigDecimal diff = new BigDecimal(0.01);
     
         latProcesada1 = latProcesada1.subtract(diff);
-        latProcesada2 = latProcesada2.subtract(diff);
+        latProcesada2 = latProcesada2.add(diff);
     
         longProcesada1 = longProcesada1.subtract(diff);
-        longProcesada2 = longProcesada2.subtract(diff);
+        longProcesada2 = longProcesada2.add(diff);
 
         return this.jdbcTemplate.query(
                 "SELECT * FROM oficinas where latitud between(?) and (?) and longitud between (?) and (?);",
@@ -82,10 +85,16 @@ public class CapacidadActualRepository {
     }
 
     public int setAforoOficina(OficinaAforo oficinaAforo){
-
-        return this.jdbcTemplate.update(
-            "UPDATE * FROM oficinas SET aforoactual = ?, numclientes = ?, numnoclientes = ?, numexterno WHERE id = ?",
-            new Object[] { oficinaAforo.getCantClientes(), oficinaAforo.getId() }
+        this.jdbcTemplate.update(
+            "UPDATE aforooficina SET clientes = ?, noclientes = ?, ventanilla = ?, plataforma = ? WHERE id = ?",
+            new Object[] { oficinaAforo.getCantClientes(),
+                 oficinaAforo.getcantNoClientes(), 
+                 oficinaAforo.getcantVentanilla(), 
+                 oficinaAforo.getcantPlataforma(), oficinaAforo.getId() }
             );
+
+        return this.jdbcTemplate.update("UPDATE oficinas SET aforoactual = ?, colaexterna = ?", new Object[] {
+            (oficinaAforo.getcantPersonal() + oficinaAforo.getcantNoPersonal()), oficinaAforo.getcantExternos()
+        });
     }
 }
