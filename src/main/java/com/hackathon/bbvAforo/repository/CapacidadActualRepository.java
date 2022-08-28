@@ -20,16 +20,17 @@ public class CapacidadActualRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Oficina> getCapacidadActual(
-            final BigDecimal latitud,
-            final BigDecimal longitud
+    public Oficina getCapacidadActual(
+            final int id
     ) {
-        return this.jdbcTemplate.query(
-                "SELECT * FROM oficinas WHERE latitud = ? AND longitud = ?",
-                new Object[] { latitud, longitud },
+        return this.jdbcTemplate.queryForObject(
+                "SELECT * FROM oficinas WHERE id = ?",
+                new Object[] { id },
                 (rs, rowNum) -> {
                     Oficina oficina = new Oficina();
+                    oficina.setId(rs.getInt("id"));
                     oficina.setAforoActual(rs.getInt("aforoactual"));
+                    oficina.setAforoTotal(rs.getInt("aforototal"));
                     oficina.setNombre(rs.getString("nombre"));
                     oficina.setDireccion(rs.getString("direccion"));
                     oficina.setLatOficina(rs.getBigDecimal("latitud"));

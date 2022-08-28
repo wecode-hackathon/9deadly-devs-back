@@ -28,11 +28,10 @@ public class CapacidadActualController {
     }
 
     @GetMapping("/obtenerCapacidadActual")
-    public List<Oficina> obtenerCapacidadActual(
-            @PathParam(value = "latitud") BigDecimal latitud,
-            @PathParam(value = "longitud") BigDecimal longitud
+    public Oficina obtenerCapacidadActual(
+            @PathParam(value = "id") int id
     ) {
-        return capacidadActualRepository.getCapacidadActual(latitud, longitud);
+        return capacidadActualRepository.getCapacidadActual(id);
     }
 
     @GetMapping("/obtenerOficinas")
