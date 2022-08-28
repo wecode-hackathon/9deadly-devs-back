@@ -1,8 +1,9 @@
 package com.hackathon.bbvAforo.controller;
 
+import com.hackathon.bbvAforo.dto.Oficina;
+import com.hackathon.bbvAforo.dto.OficinaAforo;
 import com.hackathon.bbvAforo.repository.CapacidadActualRepository;
 import com.hackathon.bbvAforo.service.CapacidadActualService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hackathon.bbvAforo.dto.Oficina;
-import com.hackathon.bbvAforo.dto.OficinaAforo;
-
+import javax.websocket.server.PathParam;
 import java.math.BigDecimal;
 import java.util.List;
-
-import javax.websocket.server.PathParam;
 
 @RestController
 public class CapacidadActualController {
@@ -27,7 +24,7 @@ public class CapacidadActualController {
 
     private CapacidadActualService capacidadActualService;
 
-    public CapacidadActualController (CapacidadActualService capacidadActualService){
+    public CapacidadActualController(CapacidadActualService capacidadActualService) {
         this.capacidadActualService = capacidadActualService;
     }
 
@@ -44,19 +41,17 @@ public class CapacidadActualController {
     }
 
     @GetMapping("/actualizarAforo")
-    public Oficina getAforoServer(@PathParam(value = "idOficina") int idOficina){
-         
+    public Oficina getAforoServer(@PathParam(value = "idOficina") int idOficina) {
+
         return capacidadActualService.getAforoServer(idOficina);
     }
 
     @PostMapping("/updateAforo")
-    public ResponseEntity setAforoActual(@RequestBody OficinaAforo oficinaAforo){
-        
-        if(capacidadActualService.setAforoOficina(oficinaAforo) == 200)
-        {
+    public ResponseEntity setAforoActual(@RequestBody OficinaAforo oficinaAforo) {
+
+        if (capacidadActualService.setAforoOficina(oficinaAforo) == 200) {
             return ResponseEntity.ok(HttpStatus.OK);
-        }
-        else {
+        } else {
             return ResponseEntity.ok(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

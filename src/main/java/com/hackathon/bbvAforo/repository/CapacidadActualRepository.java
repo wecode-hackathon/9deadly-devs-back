@@ -3,13 +3,10 @@ package com.hackathon.bbvAforo.repository;
 import com.hackathon.bbvAforo.dto.Oficina;
 import com.hackathon.bbvAforo.dto.OficinaAforo;
 import com.hackathon.bbvAforo.repository.RowMapper.OficinaRowMapper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.jdbc.core.RowMapper;  
-
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -29,7 +26,7 @@ public class CapacidadActualRepository {
     ) {
         return this.jdbcTemplate.queryForObject(
                 "SELECT * FROM oficinas WHERE id = ?",
-                new Object[] { id },
+                new Object[]{id},
                 (rs, rowNum) -> {
                     Oficina oficina = new Oficina();
                     oficina.setId(rs.getInt("id"));
@@ -42,35 +39,36 @@ public class CapacidadActualRepository {
                 });
     }
 
-    public Oficina getAforoServer(int idOficina){
+    public Oficina getAforoServer(int idOficina) {
         return this.jdbcTemplate.queryForObject(
                 "SELECT * FROM oficinas where idOficina = ?",
-                new Object[] { idOficina },
+                new Object[]{idOficina},
                 new OficinaRowMapper());
 
     }
 
     public List<Oficina> getOficinas(BigDecimal latitud, BigDecimal longitud) {
-        
+
         BigDecimal latProcesada1 = latitud;
         BigDecimal latProcesada2 = latitud;
-    
+
         BigDecimal longProcesada1 = longitud;
         BigDecimal longProcesada2 = longitud;
-    
+
         BigDecimal diff = new BigDecimal(0.01);
-    
+
         latProcesada1 = latProcesada1.subtract(diff);
-        latProcesada2 = latProcesada2.subtract(diff);
-    
+        latProcesada2 = latProcesada2.add(diff);
+
         longProcesada1 = longProcesada1.subtract(diff);
-        longProcesada2 = longProcesada2.subtract(diff);
+        longProcesada2 = longProcesada2.add(diff);
 
         return this.jdbcTemplate.query(
                 "SELECT * FROM oficinas where latitud between(?) and (?) and longitud between (?) and (?);",
                 new Object[] { latProcesada1, latProcesada2, longProcesada1, longProcesada2 },
                 (rs, rowNum) -> {
                     Oficina oficina = new Oficina();
+                    oficina.setId(rs.getInt("id"));
                     oficina.setAforoActual(rs.getInt("aforoactual"));
                     oficina.setNombre(rs.getString("nombre"));
                     oficina.setDireccion(rs.getString("direccion"));
@@ -78,14 +76,15 @@ public class CapacidadActualRepository {
                     oficina.setLongOficina(rs.getBigDecimal("longitud"));
 
                     return oficina;
-                });
+                }
+        );
     }
 
-    public int setAforoOficina(OficinaAforo oficinaAforo){
+    public int setAforoOficina(OficinaAforo oficinaAforo) {
 
         return this.jdbcTemplate.update(
-            "UPDATE * FROM oficinas SET aforoactual = ?, numclientes = ?, numnoclientes = ?, numexterno WHERE id = ?",
-            new Object[] { oficinaAforo.getCantClientes(), oficinaAforo.getId() }
-            );
+                "UPDATE * FROM oficinas SET aforoactual = ?, numclientes = ?, numnoclientes = ?, numexterno WHERE id = ?",
+                new Object[]{oficinaAforo.getCantClientes(), oficinaAforo.getId()}
+        );
     }
 }
