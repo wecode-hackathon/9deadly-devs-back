@@ -25,8 +25,7 @@ public class CapacidadActualController {
             @PathParam(value = "latitud") BigDecimal latitud,
             @PathParam(value = "longitud") BigDecimal longitud
     ) {
-
-        return capacidadActualRepository.getNumber();
+        return capacidadActualRepository.getCapacidadActual(latitud, longitud);
     }
 
     @GetMapping("/obtenerOficinas")
